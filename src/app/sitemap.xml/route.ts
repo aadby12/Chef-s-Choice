@@ -1,7 +1,31 @@
-import type { MetadataRoute } from "next";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { NextResponse } from "next/server";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+function escapeXml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+function buildSitemapXml(
+  entries: { url: string; lastModified: Date }[],
+): string {
+  const urls = entries
+    .map(
+      (e) =>
+        `  <url>\n    <loc>${escapeXml(e.url)}</loc>\n    <lastmod>${e.lastModified.toISOString()}</lastmod>\n  </url>`,
+    )
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>`;
+}
+
+export async function GET() {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
   let products: { slug: string; updated_at: string | null }[] | null = null;
@@ -15,10 +39,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     products = p.data;
     categories = c.data;
   } catch {
-    /* Build without DB if env missing */
+    /* Serve static URLs only if env / DB unavailable */
   }
 
-  const staticRoutes: MetadataRoute.Sitemap = [
+  const staticPaths = [
     "",
     "/shop",
     "/categories",
@@ -31,7 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/wishlist",
     "/auth/login",
     "/auth/signup",
-  ].map((path) => ({
+  ];
+
+  const staticRoutes = staticPaths.map((path) => ({
     url: `${base}${path}`,
     lastModified: new Date(),
   }));
@@ -48,5 +74,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: c.updated_at ? new Date(c.updated_at) : new Date(),
     })) ?? [];
 
-  return [...staticRoutes, ...categoryUrls, ...productUrls];
+  const xml = buildSitemapXml([
+    ...staticRoutes,
+    ...categoryUrls,
+    ...productUrls,
+  ]);
+
+  return new NextResponse(xml, {
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=0, must-revalidate",
+    },
+  });
 }

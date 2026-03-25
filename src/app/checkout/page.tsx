@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Container } from "@/components/layout/container";
@@ -25,7 +25,7 @@ type CheckoutZone = {
   eta_hours_max: number | null;
 };
 
-export default function CheckoutPage() {
+function CheckoutPageInner() {
   const { items, subtotal, addItem, clear } = useCart();
   const sp = useSearchParams();
   const [submitting, setSubmitting] = useState(false);
@@ -332,5 +332,22 @@ export default function CheckoutPage() {
         </aside>
       </div>
     </Container>
+  );
+}
+
+function CheckoutFallback() {
+  return (
+    <Container className="pb-20">
+      <h1 className="font-display text-3xl text-brand-espresso">Checkout</h1>
+      <p className="mt-2 text-sm text-brand-espresso/65">Loading checkout…</p>
+    </Container>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<CheckoutFallback />}>
+      <CheckoutPageInner />
+    </Suspense>
   );
 }

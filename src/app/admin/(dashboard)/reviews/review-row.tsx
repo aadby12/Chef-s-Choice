@@ -4,7 +4,7 @@ import { useFormState } from "react-dom";
 import { deleteReview, setReviewApproved, type ReviewActionState } from "./actions";
 import { Button } from "@/components/ui/button";
 
-type ProductRef = { name: string; slug: string } | null;
+type ProductRef = { name: string; slug: string };
 
 type ReviewRow = {
   id: string;
@@ -15,16 +15,24 @@ type ReviewRow = {
   author_name: string | null;
   approved: boolean;
   created_at: string;
-  products?: ProductRef;
+  /** Supabase may return one object or a one-element array for this embed */
+  products?: ProductRef | ProductRef[] | null;
 };
 
 const initial: ReviewActionState = {};
+
+function productFromEmbed(
+  products: ReviewRow["products"],
+): ProductRef | null {
+  if (products == null) return null;
+  return Array.isArray(products) ? products[0] ?? null : products;
+}
 
 export function ReviewRow({ r }: { r: ReviewRow }) {
   const [approveState, approveAction] = useFormState(setReviewApproved, initial);
   const [hideState, hideAction] = useFormState(setReviewApproved, initial);
   const [deleteState, deleteAction] = useFormState(deleteReview, initial);
-  const product = r.products;
+  const product = productFromEmbed(r.products);
 
   return (
     <div className="rounded-xl border border-brand-espresso/10 bg-white p-4 text-sm shadow-sm">
