@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --announcement-height: 2.5rem;
+  --header-height: 4rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  @apply text-brand-espresso antialiased;
+  background-color: #faf7f2;
+  background-image: radial-gradient(ellipse 120% 80% at 50% -30%, rgba(201, 162, 39, 0.09), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 0%, rgba(184, 107, 76, 0.06), transparent 45%);
+  background-attachment: fixed;
+}
+
+/* Softer motion when prefers-reduced-motion — still allow color fades */
+@media (prefers-reduced-motion: no-preference) {
+  :where(a[href]) {
+    @apply transition-[color,opacity,transform,box-shadow] duration-200 ease-out;
+  }
+
+  :where(a[href]):active {
+    @apply scale-[0.98] opacity-90;
+  }
+
+  .admin-shell :where(nav a[href]) {
+    @apply transition-[color,background-color,transform] duration-200 ease-out;
+  }
+
+  .admin-shell :where(nav a[href]):active {
+    @apply scale-[0.97];
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Focus visible — premium accessibility */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-brand-terracotta;
+}
