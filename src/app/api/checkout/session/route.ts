@@ -6,6 +6,7 @@ import { paystackInitializeTransaction } from "@/lib/payments/paystack-server";
 import { getMobileMoneyAdapter } from "@/lib/payments/mobile-money-service";
 import type { MobileMoneyProviderId } from "@/lib/payments/types";
 import { shippingGhsForZone } from "@/lib/delivery-pricing";
+import { getSiteUrl } from "@/lib/site-url";
 
 const itemSchema = z.object({
   productId: z.string().uuid(),
@@ -141,7 +142,7 @@ export async function POST(req: Request) {
 
   if (body.payment === "card") {
     try {
-      const origin = req.headers.get("origin") ?? process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+      const origin = req.headers.get("origin") ?? getSiteUrl();
       const reference = order.id.replace(/-/g, "");
 
       const { authorizationUrl, reference: paystackRef } = await paystackInitializeTransaction({

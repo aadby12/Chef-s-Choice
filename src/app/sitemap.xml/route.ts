@@ -1,3 +1,4 @@
+import { getSiteUrl } from "@/lib/site-url";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 
@@ -26,7 +27,7 @@ ${urls}
 }
 
 export async function GET() {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const base = getSiteUrl();
 
   let products: { slug: string; updated_at: string | null }[] | null = null;
   let categories: { slug: string; updated_at: string | null }[] | null = null;
