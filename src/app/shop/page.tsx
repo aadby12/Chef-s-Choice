@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { BRAND } from "@/lib/brand";
+import { absoluteUrl } from "@/lib/seo";
 import { ProductCard } from "@/components/product/product-card";
 import { Container } from "@/components/layout/container";
 import { ShopFilters } from "@/components/shop/shop-filters";
@@ -8,7 +10,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Shop all cookware",
-  description: "Browse premium cookware and kitchen essentials — filter by material, price, and availability.",
+  description: `Browse premium cookware and kitchen essentials in ${BRAND.city} — filter by material, price, and availability. Secure Paystack checkout.`,
+  alternates: { canonical: absoluteUrl("/shop") },
+  openGraph: {
+    title: `Shop all cookware · ${BRAND.name}`,
+    description: `Premium pots, pans, and kitchen tools curated for homes in ${BRAND.city} and across Ghana.`,
+    url: absoluteUrl("/shop"),
+    type: "website",
+  },
 };
 
 export const dynamic = "force-dynamic";
@@ -82,23 +91,29 @@ async function ProductResults({ sp }: { sp: SearchParams }) {
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-espresso/50">Showing</p>
           <p className="mt-1 font-display text-2xl font-semibold text-brand-espresso">
-            {total} piece{total === 1 ? "" : "s"}
-            <span className="text-brand-espresso/45"> in this edit</span>
+            {total} product{total === 1 ? "" : "s"}
+            <span className="text-brand-espresso/45"> in this collection</span>
           </p>
         </div>
+        <p className="max-w-xl text-sm text-brand-espresso/60">
+          Refine by category, material, price, and availability to find the pieces that match how you cook and host.
+        </p>
       </div>
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
       </div>
       {products.length === 0 && (
-        <p className="mt-12 rounded-2xl border border-dashed border-brand-espresso/20 bg-white/60 px-6 py-10 text-center text-sm text-brand-espresso/65">
-          No products match these choices yet — try clearing filters or widening the price range.
-        </p>
+        <div className="mt-7 rounded-[1.8rem] border border-dashed border-brand-espresso/20 bg-white/60 px-5 py-8 text-center">
+          <p className="font-display text-2xl text-brand-espresso">Nothing matched that edit.</p>
+          <p className="mt-3 text-sm text-brand-espresso/65">
+            Try clearing a few filters, widening the price range, or browsing the full collection again.
+          </p>
+        </div>
       )}
       {pages > 1 && (
-        <div className="mt-12 flex flex-wrap justify-center gap-2">
+        <div className="mt-7 flex flex-wrap justify-center gap-2">
           {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
             <a
               key={p}
@@ -124,26 +139,27 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
 
   return (
     <>
-      <div className="relative overflow-hidden border-b border-brand-espresso/10 bg-gradient-to-br from-brand-mist/40 via-brand-cream to-white">
+      <div className="relative overflow-hidden border-b border-brand-espresso/10 bg-[#17130f] text-brand-cream">
         <div className="pointer-events-none absolute -right-24 top-0 h-56 w-56 rounded-full bg-brand-gold/15 blur-3xl" aria-hidden />
-        <Container className="relative py-12 sm:py-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-ember">Shop</p>
-          <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-brand-espresso sm:text-5xl">
+        <div className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-brand-terracotta/15 blur-3xl" aria-hidden />
+        <Container className="relative py-10 sm:py-12">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-gold/90">Shop</p>
+          <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
             All products
           </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-brand-espresso/70 sm:text-base">
-            Curated cookware and tools — filter by collection and material, then buy in one tap or line up a full bag for checkout.
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-brand-cream/75 sm:text-base">
+            Explore premium cookware, kitchen essentials, and gift-worthy pieces curated to make shopping feel simple and elevated.
           </p>
         </Container>
       </div>
 
-      <Container className="pb-20 pt-10">
+      <Container className="pb-14 pt-8">
         <ShopFilters categories={categories} />
         <Suspense
           fallback={
-            <div className="space-y-6">
+            <div className="space-y-5">
               <Skeleton className="h-8 w-48" />
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <Skeleton key={i} className="h-[28rem]" />
                 ))}

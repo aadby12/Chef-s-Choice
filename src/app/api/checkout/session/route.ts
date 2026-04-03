@@ -6,6 +6,7 @@ import { paystackInitializeTransaction } from "@/lib/payments/paystack-server";
 import { getMobileMoneyAdapter } from "@/lib/payments/mobile-money-service";
 import type { MobileMoneyProviderId } from "@/lib/payments/types";
 import { shippingGhsForZone } from "@/lib/delivery-pricing";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { getSiteUrl } from "@/lib/site-url";
 
 const itemSchema = z.object({
@@ -32,6 +33,15 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const limited = rateLimit(`checkout:${ip}`, 25, 60 * 60 * 1000);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { error: "Too many checkout attempts. Try again in a little while." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfterSec) } }
+    );
+  }
+
   let body: z.infer<typeof bodySchema>;
   try {
     body = bodySchema.parse(await req.json());

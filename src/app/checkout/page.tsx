@@ -151,11 +151,11 @@ function CheckoutPageInner() {
   }
 
   return (
-    <Container className="pb-20">
+    <Container className="pb-14">
       <h1 className="font-display text-3xl text-brand-espresso">Checkout</h1>
       <p className="mt-2 text-sm text-brand-espresso/65">Secure payments · Paystack (card & channels) · Mobile Money · COD · WhatsApp assist.</p>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-2">
+      <div className="mt-7 grid gap-6 lg:grid-cols-2 lg:gap-8">
         <form onSubmit={onSubmit} className="space-y-5 rounded-2xl border border-brand-espresso/10 bg-white p-6 shadow-sm">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
@@ -337,7 +337,7 @@ function CheckoutPageInner() {
 
 function CheckoutFallback() {
   return (
-    <Container className="pb-20">
+    <Container className="pb-14">
       <h1 className="font-display text-3xl text-brand-espresso">Checkout</h1>
       <p className="mt-2 text-sm text-brand-espresso/65">Loading checkout…</p>
     </Container>

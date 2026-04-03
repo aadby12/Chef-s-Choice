@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const bodySchema = z.object({
@@ -8,6 +9,15 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const limited = rateLimit(`newsletter:${ip}`, 20, 15 * 60 * 1000);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again shortly." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfterSec) } }
+    );
+  }
+
   let email: string;
   let source: string | undefined;
   const ct = req.headers.get("content-type") ?? "";

@@ -47,42 +47,48 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="w-full border-b border-brand-espresso/[0.08] bg-brand-cream/95 shadow-[0_1px_0_rgba(26,18,11,0.04)] backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 w-full border-b border-brand-espresso/10 bg-brand-cream/95 backdrop-blur-xl">
+        <div className="mx-auto flex min-h-[3.75rem] max-w-6xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
           <Link
             href="/"
             className="group flex flex-col leading-tight transition duration-200 ease-out hover:opacity-90 active:scale-[0.98]"
           >
-            <span className="font-display text-lg tracking-tight text-brand-espresso sm:text-xl">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-ember">
+              Maison Solange
+            </span>
+            <span className="mt-0.5 font-display text-xl tracking-tight text-brand-espresso sm:text-2xl">
               {BRAND.name}
             </span>
-            <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-brand-espresso/55">
-              {BRAND.byline}
+            <span className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-brand-espresso/45">
+              Curated cookware and kitchenware
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-7 xl:flex" aria-label="Primary">
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium text-brand-espresso/70 transition-all duration-200 ease-out",
-                  "hover:-translate-y-px hover:text-brand-espresso",
+                  "relative text-sm font-medium text-brand-espresso/70 transition-colors duration-200 ease-out",
+                  "hover:text-brand-espresso",
                   pathname === item.href && "text-brand-espresso"
                 )}
               >
                 {item.label}
+                {pathname === item.href && (
+                  <span className="absolute -bottom-2 left-0 h-px w-full bg-brand-espresso" />
+                )}
               </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <form action="/search" method="get" className="hidden items-center gap-2 sm:flex">
+            <form action="/search" method="get" className="hidden items-center gap-2 lg:flex">
               <input
                 name="q"
-                placeholder="Search"
-                className="h-9 w-32 rounded-full border border-brand-espresso/10 bg-white px-3 text-xs shadow-sm focus:border-brand-clay focus:outline-none focus:ring-2 focus:ring-brand-clay/25 lg:w-40"
+                placeholder="Search cookware"
+                className="h-10 w-40 rounded-full border border-brand-espresso/10 bg-white px-4 text-sm shadow-sm focus:border-brand-clay focus:outline-none focus:ring-2 focus:ring-brand-clay/25 xl:w-52"
                 aria-label="Search products"
               />
             </form>
@@ -102,7 +108,7 @@ export function SiteHeader() {
             </Link>
             <Link
               href="/cart"
-              className="relative flex min-h-10 items-center justify-center gap-1.5 rounded-full border border-brand-espresso/10 bg-white px-3 text-sm font-semibold shadow-sm transition duration-200 hover:border-brand-gold/40 hover:shadow-md active:scale-95"
+              className="relative flex min-h-10 items-center justify-center gap-1.5 rounded-full border border-brand-espresso/10 bg-white px-3.5 text-sm font-semibold shadow-sm transition duration-200 hover:border-brand-gold/40 hover:shadow-md active:scale-95"
               aria-label="Cart"
             >
               <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -121,7 +127,7 @@ export function SiteHeader() {
                 href="/account"
                 className={cn(
                   "hidden min-h-10 items-center justify-center gap-2 rounded-full border border-brand-espresso/15",
-                  "bg-brand-cream px-4 text-sm font-medium text-brand-espresso transition duration-200 hover:border-brand-gold/35 hover:bg-white hover:shadow-sm active:scale-95 lg:inline-flex"
+                  "bg-brand-cream px-4 text-sm font-medium text-brand-espresso transition duration-200 hover:border-brand-gold/35 hover:bg-white hover:shadow-sm active:scale-95 xl:inline-flex"
                 )}
               >
                 <svg viewBox="0 0 24 24" className="h-[16px] w-[16px]" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -131,7 +137,7 @@ export function SiteHeader() {
                 Account
               </Link>
             ) : (
-              <div className="hidden items-center gap-2 lg:flex">
+              <div className="hidden items-center gap-2 xl:flex">
                 <Link
                   href="/auth/login"
                   className="inline-flex min-h-10 items-center justify-center rounded-full border border-brand-espresso/15 bg-white px-4 text-sm font-medium text-brand-espresso transition duration-200 hover:border-brand-gold/35 hover:bg-brand-mist/40 active:scale-95"

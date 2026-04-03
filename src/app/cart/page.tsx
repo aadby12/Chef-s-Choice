@@ -11,12 +11,12 @@ export default function CartPage() {
   const { items, setQty, removeItem, subtotal, clear } = useCart();
 
   return (
-    <Container className="pb-20">
+    <Container className="pb-14">
       <h1 className="font-display text-3xl text-brand-espresso sm:text-4xl">Your bag</h1>
       <p className="mt-2 text-sm text-brand-espresso/65">Review pieces before a calm, secure checkout.</p>
 
       {items.length === 0 ? (
-        <div className="mt-12 rounded-2xl border border-brand-espresso/10 bg-white p-10 text-center shadow-sm">
+        <div className="mt-8 rounded-2xl border border-brand-espresso/10 bg-white p-8 text-center shadow-sm">
           <p className="text-sm text-brand-espresso/70">Your bag is ready for something beautiful.</p>
           <Link
             href="/shop"
@@ -26,7 +26,7 @@ export default function CartPage() {
           </Link>
         </div>
       ) : (
-        <div className="mt-10 grid gap-10 lg:grid-cols-3">
+        <div className="mt-7 grid gap-6 lg:grid-cols-3 lg:gap-8">
           <div className="space-y-4 lg:col-span-2">
             {items.map((line) => (
               <div

@@ -27,9 +27,9 @@ export function AuthSplitShell({
         <div className="absolute inset-0 bg-gradient-to-t from-brand-cream via-brand-cream/20 to-transparent" />
       </div>
 
-      <Container className="relative pb-20 pt-8 lg:max-w-none lg:px-0 lg:py-0">
+      <Container className="relative pb-14 pt-6 lg:max-w-none lg:px-0 lg:py-0">
         <div className="mx-auto grid min-h-[min(88vh,920px)] max-w-6xl overflow-hidden rounded-[2rem] border border-brand-espresso/10 bg-white shadow-lift lg:grid-cols-2 lg:rounded-3xl">
-          <div className="relative flex flex-col justify-center px-4 py-10 sm:px-10 lg:px-14 lg:py-16">
+          <div className="relative flex flex-col justify-center px-4 py-8 sm:px-10 lg:px-12 lg:py-12">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-ember">{kicker}</p>
             <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-brand-espresso">{title}</h1>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-brand-espresso/65">{subtitle}</p>

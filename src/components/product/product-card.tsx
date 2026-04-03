@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
   const categorySlug = product.categories?.slug;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-brand-espresso/10 bg-white/90 shadow-sm ring-1 ring-brand-espresso/[0.06] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-brand-gold/35 hover:shadow-lift">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[1.7rem] border border-brand-espresso/10 bg-white/90 shadow-sm ring-1 ring-brand-espresso/[0.06] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-brand-gold/35 hover:shadow-lift">
       <Link href={`/products/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-brand-sand/30">
         <Image
           src={img}
@@ -52,7 +52,7 @@ export function ProductCard({ product }: { product: Product }) {
           </svg>
         </button>
       </Link>
-      <div className="flex flex-1 flex-col p-4">
+      <div className="flex flex-1 flex-col p-5">
         {categorySlug && (
           <Link
             href={`/categories/${categorySlug}`}

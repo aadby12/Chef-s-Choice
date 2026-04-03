@@ -35,7 +35,7 @@ export function ProductTabs({ product, reviews }: { product: Product; reviews: R
           </button>
         ))}
       </div>
-      <div className="min-h-[8rem] rounded-2xl border border-brand-espresso/10 bg-white p-5 text-sm leading-relaxed text-brand-espresso/75">
+      <div className="min-h-[8rem] rounded-[1.8rem] border border-brand-espresso/10 bg-white p-6 text-sm leading-relaxed text-brand-espresso/75 shadow-soft">
         {tab === "desc" && (
           <div className="space-y-3">
             <p>{product.full_description || product.short_description || "A premium piece designed for daily elegance."}</p>

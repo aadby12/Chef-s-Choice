@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <Container className="flex min-h-[60vh] max-w-md flex-col justify-center pb-24">
+    <Container className="flex min-h-[60vh] max-w-md flex-col justify-center pb-14">
       <h1 className="font-display text-3xl text-brand-espresso">Admin sign in</h1>
       <form onSubmit={onSubmit} className="mt-8 space-y-4 rounded-2xl border border-brand-espresso/10 bg-white p-6 shadow-sm">
         <div>

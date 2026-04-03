@@ -21,7 +21,7 @@ export default async function AccountDashboardPage() {
       <p className="mt-2 text-sm text-brand-espresso/65">
         {profile?.full_name || profile?.email || user.email}
       </p>
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+      <div className="mt-7 grid gap-4 sm:grid-cols-2">
         <Link
           href="/account/orders"
           className="rounded-2xl border border-brand-espresso/10 bg-white p-6 text-sm font-medium shadow-sm hover:border-brand-clay/40"

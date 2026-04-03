@@ -114,7 +114,7 @@ export function ShopFilters({ categories }: { categories: Category[] }) {
 
   return (
     <div ref={panelRef} className="relative z-30 mb-8">
-      <div className="flex flex-col gap-3 rounded-2xl border border-brand-espresso/10 bg-white/90 p-3 shadow-soft backdrop-blur-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
+      <div className="flex flex-col gap-3 rounded-[1.75rem] border border-brand-espresso/10 bg-white p-3.5 shadow-soft sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
         <form
           className="flex min-w-0 flex-1 items-center gap-2"
           onSubmit={(e) => {
@@ -133,7 +133,7 @@ export function ShopFilters({ categories }: { categories: Category[] }) {
             <Input
               name="q"
               defaultValue={sp.get("q") ?? ""}
-              placeholder="Search name or SKU…"
+              placeholder="Search name or SKU..."
               className="h-10 rounded-full border-brand-espresso/10 pl-9 text-sm"
               aria-label="Search products"
             />
@@ -207,7 +207,7 @@ export function ShopFilters({ categories }: { categories: Category[] }) {
         aria-label="Filter products"
         aria-hidden={!open}
       >
-        <div className="rounded-2xl border border-brand-espresso/10 bg-white p-5 shadow-lift ring-1 ring-brand-gold/10">
+        <div className="rounded-[1.6rem] border border-brand-espresso/10 bg-white p-5 shadow-lift ring-1 ring-brand-gold/10">
           <form
             key={spStr}
             className="space-y-4"

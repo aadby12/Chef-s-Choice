@@ -52,10 +52,19 @@ Implement real providers inside `src/lib/payments/mobile-money-service.ts` (MTN,
 
 ## Production checklist
 
-- Configure `NEXT_PUBLIC_SITE_URL`, Paystack live secret key, and a webhook URL in the Paystack dashboard pointing to `/api/webhooks/paystack`.
-- Harden rate limits on checkout & newsletter routes.
+- Set **`NEXT_PUBLIC_SITE_URL`** to your canonical HTTPS origin (used for metadata, Paystack callbacks, sitemap). On Vercel, mirror it in Project Settings → Environment Variables for Production (do not rely on `VERCEL_URL` alone for customer-facing links).
+- Swap Paystack to **live** keys (`sk_live_…`, `pk_live_…`) and register a webhook URL: `https://YOUR_DOMAIN/api/webhooks/paystack` (same secret as `PAYSTACK_SECRET_KEY` for signature verification).
+- Set **`MOBILE_MONEY_MOCK=false`** when real Mobile Money adapters are implemented (`src/lib/payments/mobile-money-service.ts`).
+- Run **`002_admin_users_rls.sql`** and confirm RLS policies in Supabase for production data.
+- **Rate limiting:** newsletter, contact, and checkout session APIs use in-memory limits per IP (see `src/lib/rate-limit.ts`). For high traffic, replace with Redis / Upstash or an edge limiter.
 - Connect transactional email + WhatsApp Business API for order updates.
 - Add product image pipeline to Supabase Storage with signed upload policies for admins.
+
+### Deploy (e.g. Vercel)
+
+1. Import the Git repo; framework preset **Next.js**.
+2. Add all variables from `.env.example` under **Environment Variables** (Production). Never commit secrets.
+3. Deploy, then smoke-test: storefront, checkout (small test payment in Paystack test mode first if desired), webhook delivery, `/admin/login` with a production admin user.
 
 ## Brand
 

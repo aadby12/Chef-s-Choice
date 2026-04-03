@@ -40,19 +40,19 @@ export default function WishlistPage() {
   }, [ids]);
 
   return (
-    <Container className="pb-20">
+    <Container className="pb-14">
       <h1 className="font-display text-3xl text-brand-espresso">Wishlist</h1>
       <p className="mt-2 text-sm text-brand-espresso/65">Curated pieces you’re considering — syncs on this device.</p>
       {loading ? (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="h-80" />
           ))}
         </div>
       ) : products.length === 0 ? (
-        <p className="mt-12 text-sm text-brand-espresso/60">Save pieces from product pages — they’ll appear here.</p>
+        <p className="mt-8 text-sm text-brand-espresso/60">Save pieces from product pages — they’ll appear here.</p>
       ) : (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const schema = z.object({
@@ -8,6 +9,15 @@ const schema = z.object({
 });
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const limited = rateLimit(`contact:${ip}`, 8, 15 * 60 * 1000);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again shortly." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfterSec) } }
+    );
+  }
+
   try {
     const ct = req.headers.get("content-type") ?? "";
     let body: z.infer<typeof schema>;

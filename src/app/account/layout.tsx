@@ -9,8 +9,8 @@ const links = [
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Container className="pb-24">
-      <div className="flex flex-col gap-8 lg:flex-row">
+    <Container className="pb-16">
+      <div className="flex flex-col gap-6 lg:flex-row">
         <aside className="lg:w-56">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-espresso/45">Account</p>
           <nav className="mt-4 flex flex-col gap-2">

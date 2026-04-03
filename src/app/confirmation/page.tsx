@@ -28,7 +28,7 @@ export default async function ConfirmationPage({ searchParams }: Props) {
   }
 
   return (
-    <Container className="pb-24 text-center">
+    <Container className="pb-16 pt-6 text-center">
       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-espresso/45">Thank you</p>
       <h1 className="mt-3 font-display text-4xl text-brand-espresso">Your order is in motion</h1>
       <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-brand-espresso/70">

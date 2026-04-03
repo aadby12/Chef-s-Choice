@@ -43,20 +43,8 @@ export async function GET() {
     /* Serve static URLs only if env / DB unavailable */
   }
 
-  const staticPaths = [
-    "",
-    "/shop",
-    "/categories",
-    "/about",
-    "/contact",
-    "/faq",
-    "/search",
-    "/cart",
-    "/checkout",
-    "/wishlist",
-    "/auth/login",
-    "/auth/signup",
-  ];
+  /** Index only high-value discovery URLs — omit cart, checkout, auth, search, and wishlist. */
+  const staticPaths = ["", "/shop", "/categories", "/about", "/contact", "/faq"];
 
   const staticRoutes = staticPaths.map((path) => ({
     url: `${base}${path}`,

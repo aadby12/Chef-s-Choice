@@ -12,8 +12,8 @@ export function ProductGallery({ images, productName }: { images: ProductImage[]
   const main = list[active] ?? list[0]!;
 
   return (
-    <div className="space-y-3">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-brand-espresso/10 bg-brand-sand/20 shadow-sm">
+    <div className="space-y-4">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-brand-espresso/10 bg-brand-sand/20 shadow-soft">
         <Image
           key={main.id}
           src={main.url}
@@ -32,7 +32,7 @@ export function ProductGallery({ images, productName }: { images: ProductImage[]
               type="button"
               onClick={() => setActive(i)}
               className={cn(
-                "relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border transition",
+                "relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border transition",
                 i === active ? "border-brand-espresso ring-2 ring-brand-clay/30" : "border-brand-espresso/10 opacity-80 hover:opacity-100"
               )}
               aria-label={`Show image ${i + 1}`}

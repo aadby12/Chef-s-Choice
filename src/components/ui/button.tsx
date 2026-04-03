@@ -2,7 +2,7 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "ghost" | "outline";
+  variant?: "primary" | "secondary" | "gold" | "ghost" | "outline";
   size?: "sm" | "md" | "lg";
 };
 
@@ -23,6 +23,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     primary:
       "bg-brand-espresso text-brand-cream shadow-soft hover:shadow-lift hover:bg-brand-charcoal border border-transparent",
     secondary: "bg-brand-clay text-brand-cream hover:bg-brand-terracotta border border-transparent",
+    gold:
+      "border border-brand-gold/80 bg-brand-gold text-brand-charcoal shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_8px_24px_-8px_rgba(201,162,39,0.65)] hover:brightness-[1.05] hover:shadow-[0_1px_0_rgba(255,255,255,0.4)_inset,0_12px_28px_-10px_rgba(201,162,39,0.72)]",
     ghost: "bg-transparent text-brand-espresso hover:bg-brand-sand/40 border border-transparent",
     outline:
       "border border-brand-espresso/15 bg-brand-cream text-brand-espresso hover:bg-white hover:border-brand-espresso/25",

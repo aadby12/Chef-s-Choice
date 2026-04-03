@@ -21,9 +21,9 @@ export function ProductDetailActions({ product }: { product: Product }) {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="rounded-[2rem] border border-brand-espresso/10 bg-white p-6 shadow-soft sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand-espresso/45">{product.categories?.name}</p>
-        <h1 className="mt-2 font-display text-3xl text-brand-espresso sm:text-4xl">{product.name}</h1>
+        <h1 className="sr-only">{product.name}</h1>
         {product.short_description && (
           <p className="mt-3 text-sm leading-relaxed text-brand-espresso/75">{product.short_description}</p>
         )}
@@ -36,13 +36,11 @@ export function ProductDetailActions({ product }: { product: Product }) {
         <p className="mt-3 text-xs text-brand-espresso/55">
           SKU {product.sku} · {product.stock > 0 ? <span className="text-brand-sage font-medium">In stock</span> : <span className="text-brand-terracotta font-medium">Out of stock</span>}
         </p>
-      </div>
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <label className="text-xs font-semibold uppercase tracking-wide text-brand-espresso/55" htmlFor="qty">
-          Quantity
-        </label>
-        <div className="flex items-center gap-2">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <label className="text-xs font-semibold uppercase tracking-wide text-brand-espresso/55" htmlFor="qty">
+            Quantity
+          </label>
+          <div className="flex items-center gap-2">
           <button
             type="button"
             className="flex h-11 w-11 items-center justify-center rounded-xl border border-brand-espresso/15 bg-white text-lg"
@@ -66,53 +64,54 @@ export function ProductDetailActions({ product }: { product: Product }) {
           >
             +
           </button>
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <Button
-          type="button"
-          variant="primary"
-          size="lg"
-          className="flex-1"
-          disabled={product.stock <= 0}
-          onClick={() =>
-            addItem(
-              {
-                id: product.id,
-                name: product.name,
-                slug: product.slug,
-                price: product.price,
-                sku: product.sku,
-                stock: product.stock,
-                image: img,
-              },
-              qty
-            )
-          }
-        >
-          Add to cart
-        </Button>
-        <Link
-          href={`/checkout?buyNow=${product.slug}&qty=${qty}`}
-          className="inline-flex min-h-12 flex-1 items-center justify-center rounded-full border border-brand-espresso/15 bg-brand-cream px-8 text-base font-medium text-brand-espresso hover:bg-white"
-        >
-          Buy now
-        </Link>
-      </div>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <Button
+            type="button"
+            variant="primary"
+            size="lg"
+            className="flex-1"
+            disabled={product.stock <= 0}
+            onClick={() =>
+              addItem(
+                {
+                  id: product.id,
+                  name: product.name,
+                  slug: product.slug,
+                  price: product.price,
+                  sku: product.sku,
+                  stock: product.stock,
+                  image: img,
+                },
+                qty
+              )
+            }
+          >
+            Add to bag
+          </Button>
+          <Link
+            href={`/checkout?buyNow=${product.slug}&qty=${qty}`}
+            className="inline-flex min-h-12 flex-1 items-center justify-center rounded-full border border-brand-espresso/15 bg-brand-cream px-8 text-base font-medium text-brand-espresso hover:bg-white"
+          >
+            Buy now
+          </Link>
+        </div>
 
-      <div className="flex flex-wrap gap-3">
-        <Button type="button" variant="ghost" size="sm" onClick={() => toggle(product.id)}>
-          {has(product.id) ? "Saved to wishlist" : "Add to wishlist"}
-        </Button>
-        <a
-          href={`https://wa.me/${BRAND.whatsappE164}?text=${waText}`}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex min-h-9 items-center rounded-full border border-brand-sage/40 px-4 text-sm font-medium text-brand-sage hover:bg-brand-mist/80"
-        >
-          WhatsApp order
-        </a>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Button type="button" variant="ghost" size="sm" onClick={() => toggle(product.id)}>
+            {has(product.id) ? "Saved to wishlist" : "Add to wishlist"}
+          </Button>
+          <a
+            href={`https://wa.me/${BRAND.whatsappE164}?text=${waText}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-9 items-center rounded-full border border-brand-sage/40 px-4 text-sm font-medium text-brand-sage hover:bg-brand-mist/80"
+          >
+            WhatsApp order
+          </a>
+        </div>
       </div>
 
       <ul className="rounded-2xl border border-brand-espresso/10 bg-white p-4 text-xs text-brand-espresso/65">
